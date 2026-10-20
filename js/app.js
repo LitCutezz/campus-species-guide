@@ -451,6 +451,8 @@ const App = (function() {
       text: url,
       width: 150,
       height: 150,
+      typeNumber: 10,
+      correctLevel: 0,  // M level - 平衡容错与容量
       colorDark: "#2E7D32",
       colorLight: "#ffffff"
     });
@@ -471,6 +473,8 @@ const App = (function() {
       text: url,
       width: 180,
       height: 180,
+      typeNumber: 10,
+      correctLevel: 0,  // M level
       colorDark: "#2E7D32",
       colorLight: "#ffffff"
     });
