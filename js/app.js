@@ -8,6 +8,15 @@ const App = (function() {
   // 当前页面状态
   let currentPage = 'home';
   let currentCategory = 'all';
+  let searchQuery = '';
+  
+  // 问答状态
+  let quizState = {
+    questions: [],
+    currentIndex: 0,
+    correct: 0,
+    answers: []
+  };
   
   /**
    * 初始化应用
@@ -55,23 +64,43 @@ const App = (function() {
    * 渲染首页
    */
   function renderHome() {
+    const progress = Collection.getProgress();
+    const unlockedCount = Collection.getUnlockedAchievements().length;
+    
     return `
       <div class="home-banner">
         <h1 class="home-title">🌿 校园物种识别图鉴</h1>
         <p class="home-subtitle">探索校园生态环境，发现身边的生物多样性</p>
         <div class="home-stats">
           <div class="stat-item">
-            <span class="stat-number">20</span>
+            <span class="stat-number">${speciesList.length}</span>
             <span class="stat-label">收录物种</span>
           </div>
           <div class="stat-item">
-            <span class="stat-number">3</span>
+            <span class="stat-number">${Object.keys(progress.categories).length}</span>
             <span class="stat-label">物种类别</span>
           </div>
           <div class="stat-item">
-            <span class="stat-number">10+</span>
-            <span class="stat-label">校园区域</span>
+            <span class="stat-number">${progress.percentage}%</span>
+            <span class="stat-label">探索进度</span>
           </div>
+        </div>
+      </div>
+      
+      <!-- 收集进度条 -->
+      <div class="home-progress-card">
+        <div class="progress-header">
+          <span>🎯 收集进度</span>
+          <span>${progress.viewed}/${progress.total}</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: ${progress.percentage}%"></div>
+        </div>
+        <div class="progress-detail">
+          ${Object.entries(progress.categories).map(([key, cat]) => {
+            const icons = { plant: '🌳', bird: '🐦', insect: '🦋', fungi: '🍄', amphibian: '🐸', mammal: '🐿️' };
+            return `<span>${icons[key] || '📋'} ${cat.viewed}/${cat.total} ${cat.label}</span>`;
+          }).join('')}
         </div>
       </div>
       
@@ -79,19 +108,37 @@ const App = (function() {
         <div class="feature-card" onclick="App.navigate('gallery')">
           <div class="feature-icon">📖</div>
           <h3>浏览图鉴</h3>
-          <p>查看校园内20种常见物种的详细信息，包括绿植、鸟类和昆虫</p>
+          <p>查看校园内20种常见物种的详细信息</p>
         </div>
         
         <div class="feature-card" onclick="App.navigate('identify')">
           <div class="feature-icon">📷</div>
           <h3>拍照识别</h3>
-          <p>拍摄或上传物种照片，AI智能识别物种信息</p>
+          <p>拍摄或上传物种照片，AI智能识别</p>
+        </div>
+        
+        <div class="feature-card" onclick="App.navigate('quiz')">
+          <div class="feature-icon">🧠</div>
+          <h3>知识问答</h3>
+          <p>测试你的物种知识，解锁趣味成就</p>
+        </div>
+        
+        <div class="feature-card" onclick="App.navigate('collection')">
+          <div class="feature-icon">🏆</div>
+          <h3>收集成就</h3>
+          <p>查看探索进度和已解锁的徽章成就</p>
+        </div>
+        
+        <div class="feature-card" onclick="App.navigate('stats')">
+          <div class="feature-icon">📊</div>
+          <h3>物种统计</h3>
+          <p>查看校园物种分布数据概览</p>
         </div>
         
         <div class="feature-card" onclick="App.navigate('scan')">
           <div class="feature-icon">📱</div>
           <h3>扫码查看</h3>
-          <p>扫描校园内物种旁的二维码，快速查看物种详细信息</p>
+          <p>扫描校园内物种旁的二维码</p>
         </div>
       </div>
       
@@ -107,12 +154,33 @@ const App = (function() {
    */
   function renderGallery() {
     const categories = getCategories();
-    const filteredSpecies = getSpeciesByCategory(currentCategory);
+    let filteredSpecies = getSpeciesByCategory(currentCategory);
+    
+    // 搜索过滤
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      filteredSpecies = filteredSpecies.filter(s => 
+        s.name.includes(q) || 
+        s.latinName.toLowerCase().includes(q) ||
+        s.description.includes(q) ||
+        s.categoryLabel.includes(q)
+      );
+    }
     
     return `
       <div class="page-header">
         <button class="btn-back" onclick="App.navigate('home')">← 返回</button>
         <h2>物种图鉴</h2>
+      </div>
+      
+      <!-- 搜索框 -->
+      <div class="search-bar">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" class="search-input" 
+               placeholder="搜索物种名称..." 
+               value="${searchQuery}"
+               oninput="App.handleSearch(this.value)">
+        ${searchQuery ? '<button class="search-clear" onclick="App.clearSearch()">&times;</button>' : ''}
       </div>
       
       <div class="category-tabs">
@@ -124,20 +192,29 @@ const App = (function() {
         `).join('')}
       </div>
       
-      <div class="species-grid">
-        ${filteredSpecies.map(species => `
-          <div class="species-card" onclick="App.showDetail('${species.id}')">
-            <div class="card-image">
-              <span class="card-emoji">${species.emoji}</span>
+      ${filteredSpecies.length === 0 ? `
+        <div class="empty-state">
+          <p>😔 未找到匹配的物种</p>
+          <p>试试其他关键词</p>
+        </div>
+      ` : `
+        <div class="species-grid">
+          ${filteredSpecies.map(species => `
+            <div class="species-card ${Collection.isViewed(species.id) ? 'viewed' : ''}" 
+                 onclick="App.showDetail('${species.id}')">
+              <div class="card-image">
+                <span class="card-emoji">${species.emoji}</span>
+                ${Collection.isViewed(species.id) ? '<span class="viewed-badge">✓</span>' : ''}
+              </div>
+              <div class="card-info">
+                <h4>${species.name}</h4>
+                <p class="card-latin">${species.latinName}</p>
+                <span class="card-tag">${species.categoryLabel}</span>
+              </div>
             </div>
-            <div class="card-info">
-              <h4>${species.name}</h4>
-              <p class="card-latin">${species.latinName}</p>
-              <span class="card-tag">${species.categoryLabel}</span>
-            </div>
-          </div>
-        `).join('')}
-      </div>
+          `).join('')}
+        </div>
+      `}
     `;
   }
   
@@ -329,6 +406,18 @@ const App = (function() {
       case 'scan':
         html = renderScan();
         break;
+      case 'quiz':
+        html = renderQuiz();
+        break;
+      case 'collection':
+        html = renderCollection();
+        break;
+      case 'stats':
+        html = renderStats();
+        break;
+      case 'quizResult':
+        html = renderQuizResult();
+        break;
       default:
         html = renderHome();
         pageName = 'home';
@@ -354,6 +443,9 @@ const App = (function() {
     pageContainer.innerHTML = `<div class="page active">${html}</div>`;
     currentPage = 'detail';
     window.scrollTo(0, 0);
+    
+    // 记录收集进度
+    Collection.recordView(speciesId);
     
     // 生成二维码
     const species = getSpeciesById(speciesId);
@@ -480,6 +572,317 @@ const App = (function() {
     });
   }
   
+  // ========== 新功能页面 ==========
+  
+  /**
+   * 搜索处理
+   */
+  function handleSearch(value) {
+    searchQuery = value.trim();
+    navigate('gallery');
+    // 保持焦点
+    setTimeout(() => {
+      const input = document.getElementById('search-input');
+      if (input) { input.focus(); input.setSelectionRange(input.value.length, input.value.length); }
+    }, 50);
+  }
+  
+  /**
+   * 清除搜索
+   */
+  function clearSearch() {
+    searchQuery = '';
+    navigate('gallery');
+  }
+  
+  /**
+   * 渲染问答页面
+   */
+  function renderQuiz() {
+    if (quizState.questions.length === 0 || quizState.currentIndex >= quizState.questions.length) {
+      // 开始页面
+      const bestRecord = Collection.getBestQuizRecord();
+      return `
+        <div class="page-header">
+          <button class="btn-back" onclick="App.navigate('home')">← 返回</button>
+          <h2>知识问答</h2>
+        </div>
+        <div class="quiz-intro">
+          <span class="quiz-intro-icon">🧠</span>
+          <h3>校园物种知识挑战</h3>
+          <p>测试你对校园物种的了解程度，每局随机抽取10道题</p>
+          ${bestRecord ? `<p class="best-record">🏅 最佳成绩：${bestRecord.correct}/${bestRecord.total} (${bestRecord.rate}%)</p>` : ''}
+          <button class="btn-start-quiz" onclick="App.startQuiz()">开始挑战</button>
+        </div>
+      `;
+    }
+    
+    const q = quizState.questions[quizState.currentIndex];
+    const total = quizState.questions.length;
+    const current = quizState.currentIndex + 1;
+    
+    return `
+      <div class="page-header">
+        <button class="btn-back" onclick="App.quitQuiz()">← 退出</button>
+        <h2>第 ${current}/${total} 题</h2>
+      </div>
+      <div class="quiz-progress">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: ${(current/total)*100}%"></div>
+        </div>
+        <span class="quiz-score">已得分：${quizState.correct}</span>
+      </div>
+      <div class="quiz-question">
+        <h3>${q.question}</h3>
+        <div class="quiz-options">
+          ${q.options.map((opt, i) => `
+            <button class="quiz-option" onclick="App.answerQuiz(${i})">
+              <span class="option-label">${String.fromCharCode(65+i)}</span>
+              <span class="option-text">${opt}</span>
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+  
+  /**
+   * 开始问答
+   */
+  function startQuiz() {
+    quizState = {
+      questions: getRandomQuestions(10),
+      currentIndex: 0,
+      correct: 0,
+      answers: []
+    };
+    navigate('quiz');
+  }
+  
+  /**
+   * 退出问答
+   */
+  function quitQuiz() {
+    quizState = { questions: [], currentIndex: 0, correct: 0, answers: [] };
+    navigate('home');
+  }
+  
+  /**
+   * 回答问题
+   */
+  function answerQuiz(optionIndex) {
+    const q = quizState.questions[quizState.currentIndex];
+    const isCorrect = optionIndex === q.answer;
+    
+    if (isCorrect) quizState.correct++;
+    quizState.answers.push({ question: q.question, selected: optionIndex, correct: q.answer, isCorrect });
+    
+    // 显示反馈
+    const options = document.querySelectorAll('.quiz-option');
+    options.forEach((opt, i) => {
+      opt.disabled = true;
+      if (i === q.answer) opt.classList.add('correct');
+      if (i === optionIndex && !isCorrect) opt.classList.add('wrong');
+    });
+    
+    // 显示解释
+    const explanationEl = document.createElement('div');
+    explanationEl.className = 'quiz-explanation ' + (isCorrect ? 'correct' : 'wrong');
+    explanationEl.innerHTML = `<p>${isCorrect ? '✅ 正确！' : '❌ 错误'} ${q.explanation}</p>`;
+    document.querySelector('.quiz-question').appendChild(explanationEl);
+    
+    // 下一题按钮
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'btn-next-question';
+    nextBtn.textContent = quizState.currentIndex < quizState.questions.length - 1 ? '下一题 →' : '查看结果';
+    nextBtn.onclick = () => {
+      quizState.currentIndex++;
+      if (quizState.currentIndex >= quizState.questions.length) {
+        Collection.recordQuiz(quizState.correct, quizState.questions.length);
+        navigate('quizResult');
+      } else {
+        navigate('quiz');
+      }
+    };
+    document.querySelector('.quiz-question').appendChild(nextBtn);
+  }
+  
+  /**
+   * 渲染问答结果页
+   */
+  function renderQuizResult() {
+    const total = quizState.questions.length;
+    const rate = Math.round((quizState.correct / total) * 100);
+    let grade = '';
+    if (rate === 100) grade = '🏆 完美！物种知识王者';
+    else if (rate >= 80) grade = '🌟 优秀！生态达人';
+    else if (rate >= 60) grade = '👍 不错！继续加油';
+    else grade = '💪 加油！多看看图鉴吧';
+    
+    return `
+      <div class="page-header">
+        <button class="btn-back" onclick="App.quitQuiz()">← 返回首页</button>
+        <h2>问答结果</h2>
+      </div>
+      <div class="quiz-result">
+        <div class="result-score-circle">
+          <span class="score-number">${quizState.correct}</span>
+          <span class="score-total">/${total}</span>
+        </div>
+        <p class="result-rate">正确率 ${rate}%</p>
+        <p class="result-grade">${grade}</p>
+        <div class="result-answers">
+          <h4>答题回顾</h4>
+          ${quizState.answers.map((a, i) => `
+            <div class="answer-item ${a.isCorrect ? 'correct' : 'wrong'}">
+              <span class="answer-icon">${a.isCorrect ? '✅' : '❌'}</span>
+              <span class="answer-text">第${i+1}题：${a.question.slice(0, 15)}...</span>
+            </div>
+          `).join('')}
+        </div>
+        <div class="result-actions">
+          <button class="btn-retry" onclick="App.startQuiz()">再来一局</button>
+          <button class="btn-review" onclick="App.navigate('gallery')">去看看图鉴</button>
+        </div>
+      </div>
+    `;
+  }
+  
+  /**
+   * 渲染收集成就页
+   */
+  function renderCollection() {
+    const progress = Collection.getProgress();
+    const unlocked = Collection.getUnlockedAchievements();
+    const unlockedIds = unlocked.map(a => a.id);
+    
+    return `
+      <div class="page-header">
+        <button class="btn-back" onclick="App.navigate('home')">← 返回</button>
+        <h2>收集成就</h2>
+      </div>
+      
+      <div class="collection-progress">
+        <div class="progress-circle">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="none" stroke="#E8F5E9" stroke-width="8"/>
+            <circle cx="50" cy="50" r="45" fill="none" stroke="#4CAF50" stroke-width="8"
+                    stroke-dasharray="${progress.percentage * 2.83} 283" stroke-linecap="round"
+                    transform="rotate(-90 50 50)"/>
+          </svg>
+          <div class="circle-text">
+            <span class="circle-number">${progress.percentage}%</span>
+            <span class="circle-label">完成度</span>
+          </div>
+        </div>
+        <div class="progress-breakdown">
+          ${Object.entries(progress.categories).map(([key, cat]) => {
+            const icons = { plant: '🌳', bird: '🐦', insect: '🦋', fungi: '🍄', amphibian: '🐸', mammal: '🐿️' };
+            const pct = cat.total > 0 ? (cat.viewed/cat.total)*100 : 0;
+            return `
+              <div class="breakdown-item">
+                <span class="breakdown-icon">${icons[key] || '📋'}</span>
+                <div class="breakdown-bar">
+                  <div class="breakdown-fill" style="width: ${pct}%"></div>
+                </div>
+                <span class="breakdown-text">${cat.viewed}/${cat.total} ${cat.label}</span>
+              </div>`;
+          }).join('')}
+        </div>
+      </div>
+      
+      <div class="achievements-section">
+        <h3>🏅 成就徽章 (${unlocked.length}/${Collection.achievements.length})</h3>
+        <div class="achievements-grid">
+          ${Collection.achievements.map(a => `
+            <div class="achievement-card ${unlockedIds.includes(a.id) ? 'unlocked' : 'locked'}">
+              <span class="achievement-icon">${unlockedIds.includes(a.id) ? a.icon : '🔒'}</span>
+              <span class="achievement-name">${a.name}</span>
+              <span class="achievement-desc">${a.desc}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+  
+  /**
+   * 渲染统计页面
+   */
+  function renderStats() {
+    // 动态统计类别
+    const categoryStats = {};
+    speciesList.forEach(s => {
+      if (!categoryStats[s.category]) {
+        categoryStats[s.category] = { count: 0, label: s.categoryLabel };
+      }
+      categoryStats[s.category].count++;
+    });
+    const catIcons = { plant: '🌳', bird: '🐦', insect: '🦋', fungi: '🍄', amphibian: '🐸', mammal: '🐿️' };
+    const catColors = { plant: '#4CAF50', bird: '#2196F3', insect: '#FF9800', fungi: '#9C27B0', amphibian: '#00BCD4', mammal: '#795548' };
+    
+    // 收集校园分布关键词
+    const locations = new Set();
+    speciesList.forEach(s => {
+      s.campusDistribution.split('、').forEach(loc => locations.add(loc.trim()));
+    });
+    
+    return `
+      <div class="page-header">
+        <button class="btn-back" onclick="App.navigate('home')">← 返回</button>
+        <h2>物种统计</h2>
+      </div>
+      
+      <div class="stats-overview">
+        <div class="stats-card large">
+          <span class="stats-number">${speciesList.length}</span>
+          <span class="stats-label">收录物种总数</span>
+        </div>
+        ${Object.entries(categoryStats).map(([key, cat]) => `
+          <div class="stats-card">
+            <span class="stats-number">${cat.count}</span>
+            <span class="stats-label">${catIcons[key] || '📋'} ${cat.label}</span>
+          </div>
+        `).join('')}
+      </div>
+      
+      <div class="stats-section">
+        <h3>📊 类别占比</h3>
+        <div class="stats-chart">
+          <div class="chart-bar-container">
+            ${Object.entries(categoryStats).map(([key, cat]) => {
+              const pct = Math.round((cat.count/speciesList.length)*100);
+              return `<div class="chart-bar" style="width: ${pct}%; background: ${catColors[key] || '#607D8B'};">
+                <span>${cat.label} ${pct}%</span>
+              </div>`;
+            }).join('')}
+          </div>
+        </div>
+      </div>
+      
+      <div class="stats-section">
+        <h3>📍 校园分布区域 (${locations.size}个)</h3>
+        <div class="location-tags">
+          ${[...locations].slice(0, 40).map(loc => `<span class="location-tag">${loc}</span>`).join('')}
+          ${locations.size > 40 ? `<span class="location-tag">+${locations.size - 40}个...</span>` : ''}
+        </div>
+      </div>
+      
+      <div class="stats-section">
+        <h3>🌱 物种速览 (${speciesList.length}种)</h3>
+        <div class="species-mini-list">
+          ${speciesList.map(s => `
+            <div class="mini-item" onclick="App.showDetail('${s.id}')">
+              <span>${s.emoji}</span>
+              <span class="mini-name">${s.name}</span>
+              <span class="mini-tag ${s.category}">${s.categoryLabel}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+  
   // 公开接口
   return {
     init,
@@ -489,7 +892,12 @@ const App = (function() {
     filterCategory,
     handleFileSelect,
     openCamera,
-    startIdentify
+    startIdentify,
+    handleSearch,
+    clearSearch,
+    startQuiz,
+    quitQuiz,
+    answerQuiz
   };
 })();
 

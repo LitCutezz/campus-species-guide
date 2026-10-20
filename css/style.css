@@ -836,3 +836,642 @@ img {
     grid-template-columns: 1fr;
   }
 }
+
+/* ========== 新功能样式 ========== */
+
+/* 首页进度卡片 */
+.home-progress-card {
+  background: var(--bg-white);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.progress-bar {
+  height: 8px;
+  background: var(--primary-light);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.progress-detail {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* 搜索框 */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 8px 16px;
+  margin-bottom: 12px;
+  transition: var(--transition);
+}
+
+.search-bar:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.search-icon {
+  font-size: 1rem;
+  margin-right: 8px;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 0.875rem;
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.search-input::placeholder {
+  color: var(--text-light);
+}
+
+.search-clear {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--text-light);
+  padding: 0 4px;
+  cursor: pointer;
+}
+
+/* 已查看标记 */
+.species-card.viewed {
+  border: 2px solid var(--primary-light);
+}
+
+.viewed-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 20px;
+  height: 20px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: bold;
+}
+
+.card-image {
+  position: relative;
+}
+
+/* 问答页面 */
+.quiz-intro {
+  text-align: center;
+  padding: 48px 24px;
+  background: var(--bg-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.quiz-intro-icon {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.quiz-intro h3 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+  color: var(--primary-dark);
+}
+
+.quiz-intro p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.best-record {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.btn-start-quiz {
+  margin-top: 20px;
+  padding: 14px 36px;
+  background: var(--primary);
+  color: white;
+  border-radius: 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.btn-start-quiz:hover {
+  background: var(--primary-dark);
+}
+
+.quiz-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.quiz-progress .progress-bar {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.quiz-score {
+  font-size: 0.8rem;
+  color: var(--primary-dark);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.quiz-question h3 {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--bg-white);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  text-align: left;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.quiz-option:hover:not(:disabled) {
+  border-color: var(--primary);
+  background: #F1F8F1;
+}
+
+.quiz-option:disabled {
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+
+.quiz-option.correct {
+  border-color: #4CAF50;
+  background: #E8F5E9;
+}
+
+.quiz-option.wrong {
+  border-color: #F44336;
+  background: #FFEBEE;
+}
+
+.option-label {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-light);
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--primary-dark);
+  flex-shrink: 0;
+}
+
+.quiz-explanation {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.quiz-explanation.correct {
+  background: #E8F5E9;
+  border-left: 4px solid #4CAF50;
+}
+
+.quiz-explanation.wrong {
+  background: #FFEBEE;
+  border-left: 4px solid #F44336;
+}
+
+.btn-next-question {
+  margin-top: 16px;
+  width: 100%;
+  padding: 12px;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.btn-next-question:hover {
+  background: var(--primary-dark);
+}
+
+/* 问答结果页 */
+.quiz-result {
+  text-align: center;
+  padding: 24px;
+  background: var(--bg-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.result-score-circle {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary-light) 0%, #E8F5E9 100%);
+  border-radius: 50%;
+}
+
+.score-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.score-total {
+  font-size: 1rem;
+  color: var(--text-light);
+}
+
+.result-rate {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.result-grade {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.result-answers {
+  text-align: left;
+  margin-bottom: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.result-answers h4 {
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.answer-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 0.8rem;
+}
+
+.answer-item.correct .answer-icon { color: #4CAF50; }
+.answer-item.wrong .answer-icon { color: #F44336; }
+
+.result-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.btn-retry, .btn-review {
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.btn-retry {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-review {
+  background: var(--bg-light);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+/* 收集成就页 */
+.collection-progress {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--bg-white);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+
+.progress-circle {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+}
+
+.progress-circle svg {
+  width: 100%;
+  height: 100%;
+}
+
+.circle-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.circle-number {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.circle-label {
+  font-size: 0.65rem;
+  color: var(--text-light);
+}
+
+.progress-breakdown {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.breakdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+}
+
+.breakdown-icon {
+  font-size: 1rem;
+}
+
+.breakdown-bar {
+  flex: 1;
+  height: 6px;
+  background: var(--primary-light);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.breakdown-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.breakdown-text {
+  white-space: nowrap;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.achievements-section h3 {
+  font-size: 1rem;
+  margin-bottom: 12px;
+  color: var(--primary-dark);
+}
+
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.achievement-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 8px;
+  background: var(--bg-white);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: var(--transition);
+}
+
+.achievement-card.locked {
+  opacity: 0.5;
+  filter: grayscale(0.8);
+}
+
+.achievement-icon {
+  font-size: 2rem;
+  margin-bottom: 6px;
+}
+
+.achievement-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.achievement-desc {
+  font-size: 0.7rem;
+  color: var(--text-light);
+}
+
+/* 统计页面 */
+.stats-overview {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.stats-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.stats-card.large {
+  grid-column: span 2;
+  background: linear-gradient(135deg, var(--primary-light) 0%, #E8F5E9 100%);
+}
+
+.stats-number {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.stats-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.stats-section {
+  background: var(--bg-white);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+
+.stats-section h3 {
+  font-size: 0.95rem;
+  color: var(--primary-dark);
+  margin-bottom: 12px;
+}
+
+.chart-bar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chart-bar {
+  height: 28px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+  min-width: 60px;
+}
+
+.location-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.location-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  background: #E3F2FD;
+  color: #1565C0;
+  border-radius: 12px;
+  font-size: 0.75rem;
+}
+
+.species-mini-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.mini-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  background: var(--bg-light);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 0.8rem;
+}
+
+.mini-item:hover {
+  background: var(--primary-light);
+}
+
+.mini-name {
+  flex: 1;
+  font-weight: 500;
+}
+
+.mini-tag {
+  font-size: 0.6rem;
+  padding: 2px 6px;
+  border-radius: 8px;
+}
+
+.mini-tag.plant { background: #E8F5E9; color: #2E7D32; }
+.mini-tag.bird { background: #E3F2FD; color: #1565C0; }
+.mini-tag.insect { background: #FFF3E0; color: #E65100; }
+.mini-tag.fungi { background: #F3E5F5; color: #7B1FA2; }
+.mini-tag.amphibian { background: #E0F7FA; color: #00838F; }
+.mini-tag.mammal { background: #EFEBE9; color: #4E342E; }
+
+/* 首页多卡片网格调整 */
+@media (min-width: 600px) {
+  .feature-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .achievements-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .species-mini-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .stats-overview {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .stats-card.large {
+    grid-column: span 3;
+  }
+}
+
+@media (min-width: 900px) {
+  .achievements-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .species-mini-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

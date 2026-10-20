@@ -1,303 +1,129 @@
 /**
- * 校园常见物种数据
- * 包含20种校园常见物种：绿植(10种)、鸟类(5种)、昆虫(5种)
+ * 校园物种数据（扩充版）
+ * 包含约95种校园常见物种：绿植、鸟类、昆虫、真菌、两栖爬行等
  */
 const speciesList = [
-  // ========== 绿植类 (10种) ==========
-  {
-    id: "camphor-tree",
-    name: "樟树",
-    latinName: "Cinnamomum camphora",
-    category: "plant",
-    categoryLabel: "绿植",
-    description: "常绿大乔木，高可达30米，树冠广展，枝叶有樟脑香气。叶片革质，卵形或椭圆形，先端渐尖，基部宽楔形。花期4-5月，果期8-11月。",
-    habitat: "喜温暖湿润气候，适应性强，耐修剪，对土壤要求不严，在深厚肥沃的酸性土壤中生长良好。",
-    ecologicalRole: "净化空气、吸附粉尘、降低噪音，为鸟类提供栖息地和食物来源，是城市绿化的重要树种。",
-    features: ["树冠广展如伞", "枝叶有樟脑香气", "四季常绿", "树皮纵裂"],
-    campusDistribution: "教学楼前广场、主干道两侧、图书馆周边",
-    funFact: "樟树可提取樟脑和樟油，是天然防虫剂，古人常用樟木箱保存衣物防虫蛀。",
-    emoji: "🌳"
-  },
-  {
-    id: "osmanthus",
-    name: "桂花树",
-    latinName: "Osmanthus fragrans",
-    category: "plant",
-    categoryLabel: "绿植",
-    description: "常绿灌木或小乔木，高3-5米。叶片对生，椭圆形或长椭圆形，边缘有锯齿。花期9-10月，花朵小而密集，香气浓郁。",
-    habitat: "喜温暖湿润环境，耐半阴，不耐寒。适宜在排水良好的微酸性土壤中生长。",
-    ecologicalRole: "花香吸引蜜蜂等传粉昆虫，四季常绿保持水土，是优良的园林绿化树种。",
-    features: ["秋季花香浓郁", "花朵金黄或银白", "叶片深绿光亮", "树形优美"],
-    campusDistribution: "教学楼中庭、学生宿舍区、校园花园",
-    funFact: "桂花是中国传统十大名花之一，可制作桂花糕、桂花茶、桂花酒等美食。",
-    emoji: "🌸"
-  },
-  {
-    id: "mondo-grass",
-    name: "麦冬",
-    latinName: "Ophiopogon japonicus",
-    category: "plant",
-    categoryLabel: "绿植",
-    description: "多年生常绿草本植物，植株低矮，高10-30厘米。叶片细长如麦苗，深绿色。花淡紫色或白色，果实蓝色球形。",
-    habitat: "喜半阴环境，耐寒耐旱，适应性强。常生于林下、溪边或阴湿的山坡。",
-    ecologicalRole: "优秀的地被植物，能有效防止水土流失，抑制杂草生长，维持土壤湿度。",
-    features: ["叶片细长翠绿", "耐阴性强", "蓝紫色果实", "四季常绿"],
-    campusDistribution: "花坛边缘、道路两侧绿化带、树荫下",
-    funFact: "麦冬的块根是中药材，有养阴生津、润肺清心的功效，是常见的中药饮片。",
-    emoji: "🌿"
-  },
-  {
-    id: "ginkgo",
-    name: "银杏",
-    latinName: "Ginkgo biloba",
-    category: "plant",
-    categoryLabel: "绿植",
-    description: "落叶大乔木，高可达40米。叶片扇形，春夏翠绿，秋季金黄。雌雄异株，种子白色，外种皮肉质有臭味。",
-    habitat: "喜光，耐寒耐旱，对气候和土壤适应范围较广。深根性树种，生长缓慢但寿命极长。",
-    ecologicalRole: "净化空气、抗病虫害能力强，秋叶景观效果极佳，是活化石级的孑遗植物。",
-    features: ["扇形叶片独特", "秋季叶片金黄", "寿命可达千年", "活化石植物"],
-    campusDistribution: "校园主干道、行政楼前、银杏大道",
-    funFact: "银杏是2.7亿年前就存在的古老物种，被称为植物界的'活化石'，是与恐龙同时代的生物。",
-    emoji: "🍂"
-  },
-  {
-    id: "crape-myrtle",
-    name: "紫薇",
-    latinName: "Lagerstroemia indica",
-    category: "plant",
-    categoryLabel: "绿植",
-    description: "落叶灌木或小乔木，高3-7米。树皮光滑，灰褐色。叶片互生，椭圆形。花期6-9月，花色丰富，有紫、红、粉、白等。",
-    habitat: "喜光，稍耐阴，耐寒耐旱。在温暖湿润的环境中生长良好，对土壤要求不严。",
-    ecologicalRole: "花期长，为传粉昆虫提供食物，美化环境，吸收有害气体。",
-    features: ["花期长达百日", "树皮光滑", "花色丰富", "耐修剪"],
-    campusDistribution: "校园花坛、行政楼花坛、景观步道旁",
-    funFact: "紫薇又叫'百日红'，因为花期可达100天以上。树干光滑，猴子都爬不上去，又叫'猴刺脱'。",
-    emoji: "🌺"
-  },
-  {
-    id: "red-leaf-photinia",
-    name: "红叶石楠",
-    latinName: "Photinia × fraseri",
-    category: "plant",
-    categoryLabel: "绿植",
-    description: "常绿灌木，高2-4米。新梢和嫩叶鲜红色，老叶深绿色。叶片革质，长椭圆形。花白色，果实红色。",
-    habitat: "喜光，稍耐阴，耐寒耐旱，生长速度快，耐修剪造型。适宜在肥沃疏松的土壤中生长。",
-    ecologicalRole: "常绿保持水土，红色新叶美化环境，果实为鸟类提供食物。",
-    features: ["新叶鲜红如火", "生长速度快", "耐修剪造型", "四季观赏"],
-    campusDistribution: "道路中央隔离带、围墙边、花坛中",
-    funFact: "红叶石楠的红色新叶每年可出现2-3次，每次新叶持续时间约一个月，是园林中'红色'担当。",
-    emoji: "🍁"
-  },
-  {
-    id: "azalea",
-    name: "杜鹃",
-    latinName: "Rhododendron simsii",
-    category: "plant",
-    categoryLabel: "绿植",
-    description: "常绿或落叶灌木，高1-2米。叶片卵形，表面有棕色绒毛。花期4-5月，花朵漏斗形，颜色有红、粉、白、紫等。",
-    habitat: "喜半阴湿润环境，不耐暴晒。适宜在酸性土壤中生长，忌碱性土壤。",
-    ecologicalRole: "春季为传粉昆虫提供大量花蜜，根系保持水土，是优良的园林观赏植物。",
-    features: ["春季开花繁盛", "花色丰富艳丽", "喜酸性土壤", "品种繁多"],
-    campusDistribution: "教学楼后花园、景观池塘边、山坡绿化带",
-    funFact: "杜鹃花又叫映山红，传说杜鹃鸟啼叫时嘴角会流血，血滴在山上就变成了杜鹃花。",
-    emoji: "🌺"
-  },
-  {
-    id: "gardenia",
-    name: "栀子花",
-    latinName: "Gardenia jasminoides",
-    category: "plant",
-    categoryLabel: "绿植",
-    description: "常绿灌木，高1-2米。叶片对生，革质有光泽。花期5-7月，花朵白色，芳香浓郁，花瓣肉质。果实橙黄色。",
-    habitat: "喜温暖湿润气候，喜光也耐阴。适宜在疏松肥沃的酸性土壤中生长。",
-    ecologicalRole: "花香吸引传粉昆虫，果实可作天然染料，常绿叶片净化空气。",
-    features: ["花朵洁白芳香", "叶片油绿光亮", "果实可入药", "夏季开花"],
-    campusDistribution: "学生宿舍楼下、图书馆前花坛、校园步道旁",
-    funFact: "栀子花的果实是传统中药'栀子'，也是天然黄色染料，古代用它来染制黄色布料。",
-    emoji: "🤍"
-  },
-  {
-    id: "camellia",
-    name: "茶花",
-    latinName: "Camellia japonica",
-    category: "plant",
-    categoryLabel: "绿植",
-    description: "常绿灌木或小乔木，高2-6米。叶片革质，椭圆形，深绿色有光泽。花期1-4月，花朵大而艳丽，多为红色或粉色。",
-    habitat: "喜半阴环境，耐寒，不耐烈日暴晒。适宜在排水良好的微酸性土壤中生长。",
-    ecologicalRole: "冬末春初开花，为早春传粉昆虫提供重要食物来源，丰富冬季景观。",
-    features: ["冬春开花", "花朵大而艳丽", "叶片常绿光亮", "品种丰富"],
-    campusDistribution: "教学楼前花坛、行政楼门口、校园景观区",
-    funFact: "茶花是中国十大名花之一，花期长达3个月，一朵花可开放20-30天不凋谢。",
-    emoji: "🌹"
-  },
-  {
-    id: "boston-ivy",
-    name: "爬山虎",
-    latinName: "Parthenocissus tricuspidata",
-    category: "plant",
-    categoryLabel: "绿植",
-    description: "多年生落叶藤本植物，茎蔓可延伸20米以上。叶片三裂，春夏翠绿，秋季变红。卷须先端有吸盘，可攀附墙壁。",
-    habitat: "适应性极强，耐寒耐旱耐阴。可生长在各种土壤上，向阳或背阴处均能生长。",
-    ecologicalRole: "覆盖墙面隔热降温，减少建筑能耗。吸收二氧化碳和粉尘，为昆虫和小鸟提供栖息空间。",
-    features: ["攀附能力强", "秋季叶色变红", "隔热降温", "生长迅速"],
-    campusDistribution: "老教学楼外墙、围墙、体育馆侧墙",
-    funFact: "爬山虎覆盖的墙面夏天可降低室内温度3-5°C，是天然的'绿色空调'，还能吸附PM2.5颗粒。",
-    emoji: "🌿"
-  },
+  // ========== 绿植类 (35种) ==========
+  {id:"camphor-tree",name:"樟树",latinName:"Cinnamomum camphora",category:"plant",categoryLabel:"绿植",description:"常绿大乔木，高可达30米，树冠广展，枝叶有樟脑香气。",habitat:"喜温暖湿润气候，适应性强，耐修剪。",ecologicalRole:"净化空气、吸附粉尘、为鸟类提供栖息地。",features:["树冠广展","樟脑香气","四季常绿"],campusDistribution:"教学楼前广场、主干道两侧",funFact:"樟树可提取樟脑，是天然防虫剂。",emoji:"🌳"},
+  {id:"osmanthus",name:"桂花树",latinName:"Osmanthus fragrans",category:"plant",categoryLabel:"绿植",description:"常绿灌木或小乔木，花期9-10月，花朵小而密集，香气浓郁。",habitat:"喜温暖湿润环境，耐半阴。",ecologicalRole:"花香吸引传粉昆虫，四季常绿保持水土。",features:["秋季花香","花可食用","叶片光亮"],campusDistribution:"教学楼中庭、宿舍区",funFact:"桂花可制作桂花糕、桂花茶、桂花酒。",emoji:"🌸"},
+  {id:"mondo-grass",name:"麦冬",latinName:"Ophiopogon japonicus",category:"plant",categoryLabel:"绿植",description:"多年生常绿草本，叶片细长如麦苗，果实蓝色球形。",habitat:"喜半阴环境，耐寒耐旱。",ecologicalRole:"优秀的地被植物，防止水土流失。",features:["叶片细长","蓝紫果实","耐阴性强"],campusDistribution:"花坛边缘、树荫下",funFact:"麦冬的块根是中药材，有养阴生津功效。",emoji:"🌿"},
+  {id:"ginkgo",name:"银杏",latinName:"Ginkgo biloba",category:"plant",categoryLabel:"绿植",description:"落叶大乔木，叶片扇形，秋季金黄。雌雄异株。",habitat:"喜光，耐寒耐旱，生长缓慢但寿命极长。",ecologicalRole:"净化空气、秋叶景观效果极佳。",features:["扇形叶片","秋季金黄","活化石"],campusDistribution:"校园主干道、银杏大道",funFact:"银杏是2.7亿年前的古老物种，被称为'活化石'。",emoji:"🍂"},
+  {id:"crape-myrtle",name:"紫薇",latinName:"Lagerstroemia indica",category:"plant",categoryLabel:"绿植",description:"落叶灌木，花期6-9月，花色丰富，树皮光滑。",habitat:"喜光，耐修剪，花期长达百日。",ecologicalRole:"花期长为传粉昆虫提供食物。",features:["百日红","树皮光滑","花色丰富"],campusDistribution:"花坛、景观步道旁",funFact:"紫薇又叫'百日红'，树干光滑猴子爬不上去叫'猴刺脱'。",emoji:"🌺"},
+  {id:"red-leaf-photinia",name:"红叶石楠",latinName:"Photinia × fraseri",category:"plant",categoryLabel:"绿植",description:"常绿灌木，新梢和嫩叶鲜红色，老叶深绿色。",habitat:"喜光耐修剪，生长速度快。",ecologicalRole:"常绿保持水土，红色新叶美化环境。",features:["新叶鲜红","生长快","耐修剪"],campusDistribution:"道路隔离带、围墙边",funFact:"红叶石楠红色新叶每年可出现2-3次。",emoji:"🍁"},
+  {id:"azalea",name:"杜鹃",latinName:"Rhododendron simsii",category:"plant",categoryLabel:"绿植",description:"常绿灌木，花期4-5月，花朵漏斗形，颜色丰富。",habitat:"喜半阴湿润环境，适宜酸性土壤。",ecologicalRole:"春季为传粉昆虫提供大量花蜜。",features:["春季开花","花色艳丽","喜酸性土"],campusDistribution:"后花园、景观池塘边",funFact:"杜鹃花又叫映山红，传说杜鹃鸟啼血化花。",emoji:"🌺"},
+  {id:"gardenia",name:"栀子花",latinName:"Gardenia jasminoides",category:"plant",categoryLabel:"绿植",description:"常绿灌木，花白色芳香浓郁，果实橙黄色。",habitat:"喜温暖湿润，喜光也耐阴。",ecologicalRole:"花香吸引传粉昆虫，果实可作天然染料。",features:["洁白芳香","果实入药","夏季开花"],campusDistribution:"宿舍楼下、步道旁",funFact:"栀子花果实是天然黄色染料，古代用来染布。",emoji:"🤍"},
+  {id:"camellia",name:"茶花",latinName:"Camellia japonica",category:"plant",categoryLabel:"绿植",description:"常绿灌木，花期1-4月，花朵大而艳丽。",habitat:"喜半阴环境，耐寒。",ecologicalRole:"冬末春初开花，为早春传粉昆虫提供食物。",features:["冬春开花","花朵大","品种丰富"],campusDistribution:"教学楼花坛、校门口",funFact:"茶花一朵花可开放20-30天不凋谢。",emoji:"🌹"},
+  {id:"boston-ivy",name:"爬山虎",latinName:"Parthenocissus tricuspidata",category:"plant",categoryLabel:"绿植",description:"落叶藤本，茎蔓可延伸20米以上，卷须有吸盘。",habitat:"适应性极强，耐寒耐旱耐阴。",ecologicalRole:"覆盖墙面隔热降温，吸附粉尘。",features:["攀附力强","秋叶变红","隔热降温"],campusDistribution:"老教学楼外墙、围墙",funFact:"爬山虎覆盖墙面夏天可降低室内温度3-5°C。",emoji:"🌿"},
+  {id:"willow",name:"柳树",latinName:"Salix babylonica",category:"plant",categoryLabel:"绿植",description:"落叶乔木，枝条细长下垂，叶片披针形。",habitat:"喜水湿环境，适应性强，生长迅速。",ecologicalRole:"护岸固堤，为水生生物提供阴凉。",features:["枝条下垂","喜水","生长快"],campusDistribution:"景观湖畔、河边步道",funFact:"'无心插柳柳成荫'说的是柳树极强的繁殖能力。",emoji:"🌳"},
+  {id:"pine",name:"雪松",latinName:"Cedrus deodara",category:"plant",categoryLabel:"绿植",description:"常绿大乔木，树冠塔形，针叶银绿色。",habitat:"喜光，耐寒耐旱，适宜排水良好土壤。",ecologicalRole:"四季常绿净化空气，防风固沙。",features:["塔形树冠","针叶银绿","寿命长"],campusDistribution:"行政楼前、校园广场",funFact:"雪松是黎巴嫩国树，树龄可达数百年。",emoji:"🌲"},
+  {id:"magnolia",name:"玉兰",latinName:"Yulania denudata",category:"plant",categoryLabel:"绿植",description:"落叶乔木，先花后叶，花朵大而洁白芳香。",habitat:"喜光，稍耐阴，适宜肥沃土壤。",ecologicalRole:"早春开花为传粉昆虫提供食物来源。",features:["先花后叶","花大洁白","芳香"],campusDistribution:"图书馆前、教学楼入口",funFact:"玉兰花是中国传统名花，花语是'高洁'。",emoji:"🤍"},
+  {id:"cherry-blossom",name:"樱花",latinName:"Prunus serrulata",category:"plant",categoryLabel:"绿植",description:"落叶乔木，花期3-4月，花粉白或粉红，成片极为壮观。",habitat:"喜光，喜温暖湿润气候。",ecologicalRole:"春季重要观赏树种，吸引传粉昆虫。",features:["春季花海","花期短暂","花瓣飘落"],campusDistribution:"樱花大道、湖畔步道",funFact:"樱花盛开仅约一周，'樱花雨'是最美的赏花时刻。",emoji:"🌸"},
+  {id:"bamboo",name:"竹子",latinName:"Bambusoideae",category:"plant",categoryLabel:"绿植",description:"多年生禾本科植物，茎秆中空有节，生长极快。",habitat:"喜温暖湿润，适应性强。",ecologicalRole:"固碳能力强，为鸟类和昆虫提供栖息地。",features:["生长极快","茎秆中空","常绿"],campusDistribution:"竹林小径、教学楼后",funFact:"竹子一天可生长近1米，是世界上生长最快的植物。",emoji:"🎋"},
+  {id:"chinese-privet",name:"女贞",latinName:"Ligustrum lucidum",category:"plant",categoryLabel:"绿植",description:"常绿乔木，叶片革质光亮，果实紫黑色。",habitat:"适应性强，耐修剪，耐烟尘。",ecologicalRole:"果实为冬季鸟类重要食物来源。",features:["叶片光亮","耐修剪","冬季果"],campusDistribution:"道路绿化带、围墙",funFact:"女贞的果实叫'女贞子'，是传统中药材。",emoji:"🌳"},
+  {id:"euonymus",name:"大叶黄杨",latinName:"Euonymus japonicus",category:"plant",categoryLabel:"绿植",description:"常绿灌木，叶片厚实光亮，常用于绿篱。",habitat:"耐阴性强，耐寒耐修剪。",ecologicalRole:"常绿绿篱保持水土，净化空气。",features:["绿篱常用","叶片厚实","耐阴"],campusDistribution:"花坛围边、道路绿篱",funFact:"大叶黄杨是城市绿化最常用的绿篱植物之一。",emoji:"🌿"},
+  {id:"jasmine-star",name:"夹竹桃",latinName:"Nerium oleander",category:"plant",categoryLabel:"绿植",description:"常绿灌木，花红、粉或白色，全株有毒。",habitat:"喜光耐旱，适应性强。",ecologicalRole:"抗烟尘能力强，净化空气。",features:["花色艳丽","全株有毒","耐旱"],campusDistribution:"围墙边、道路旁",funFact:"夹竹桃虽然有毒，但它是城市净化空气的功臣。",emoji:"🌺"},
+  {id:"canna",name:"美人蕉",latinName:"Canna indica",category:"plant",categoryLabel:"绿植",description:"多年生草本，叶片宽大，花朵大而鲜艳。",habitat:"喜温暖湿润，不耐寒。",ecologicalRole:"吸引蝴蝶传粉，美化环境。",features:["花朵大","叶宽大","色彩艳丽"],campusDistribution:"花坛中央、景观水池边",funFact:"美人蕉的种子被称为'印度珠'，非常坚硬。",emoji:"🌺"},
+  {id:"lily-turf",name:"沿阶草",latinName:"Ophiopogon bodinieri",category:"plant",categoryLabel:"绿植",description:"多年生常绿草本，叶片细长密集，常作草坪替代。",habitat:"耐阴耐旱，管理粗放。",ecologicalRole:"地被覆盖保持水土，抑制杂草。",features:["耐踩踏","四季绿","管理粗放"],campusDistribution:"树荫下、步道边缘",funFact:"沿阶草比草坪更耐阴，是大树下的最佳地被选择。",emoji:"🌿"},
+  {id:"pittosporum",name:"海桐",latinName:"Pittosporum tobira",category:"plant",categoryLabel:"绿植",description:"常绿灌木，叶片聚生枝顶，花香淡雅。",habitat:"喜温暖湿润，耐修剪。",ecologicalRole:"常绿净化空气，花香吸引传粉者。",features:["叶聚枝顶","花香","耐海风"],campusDistribution:"花坛角落、建筑周围",funFact:"海桐原产中国和日本，非常耐海风和盐碱。",emoji:"🌿"},
+  {id:"rose",name:"月季",latinName:"Rosa chinensis",category:"plant",categoryLabel:"绿植",description:"常绿或半常绿灌木，几乎全年开花，花色丰富。",habitat:"喜光，喜肥沃土壤，需定期修剪。",ecologicalRole:"长期开花持续为传粉昆虫提供食物。",features:["月月开花","花色丰富","有刺"],campusDistribution:"月季园、教学楼花坛",funFact:"月季是中国原产，被称为'花中皇后'，几乎每月开花。",emoji:"🌹"},
+  {id:"bamboo-leaf",name:"棕竹",latinName:"Rhapis excelsa",category:"plant",categoryLabel:"绿植",description:"常绿丛生灌木，茎似竹但属于棕榈科。",habitat:"喜半阴湿润，不耐强光。",ecologicalRole:"室内净化空气，增加空气湿度。",features:["形似竹子","棕榈科","耐阴"],campusDistribution:"教学楼大厅、走廊盆栽",funFact:"棕竹虽名带'竹'，但其实是棕榈科植物。",emoji:"🌴"},
+  {id:"wisteria",name:"紫藤",latinName:"Wisteria sinensis",category:"plant",categoryLabel:"绿植",description:"落叶攀援藤本，春季开花，紫色花穗下垂如瀑布。",habitat:"喜光，适应性强，生长旺盛。",ecologicalRole:"大量花朵为蜜蜂提供丰富花蜜。",features:["花穗下垂","紫色瀑布","芳香"],campusDistribution:"花架长廊、教学楼连廊",funFact:"紫藤可存活数百年，有些古紫藤被称为'紫藤王'。",emoji:"💜"},
+  {id:"boxwood",name:"黄杨",latinName:"Buxus sinica",category:"plant",categoryLabel:"绿植",description:"常绿灌木，生长极缓慢，叶片小而致密。",habitat:"耐阴耐寒，喜湿润环境。",ecologicalRole:"常绿绿篱，保持水土。",features:["生长极慢","叶密","可造型"],campusDistribution:"校园入口景观、造型盆景",funFact:"黄杨生长极慢，'岁长一寸，遇闰年反退'是古人对它的描述。",emoji:"🌿"},
+  {id:"banana-shrub",name:"含笑",latinName:"Michelia figo",category:"plant",categoryLabel:"绿植",description:"常绿灌木，花小但香气浓郁如香蕉味。",habitat:"喜半阴湿润环境。",ecologicalRole:"花香吸引传粉昆虫。",features:["香蕉花香","常绿","花小"],campusDistribution:"教学楼背阴面、花园",funFact:"含笑花香像成熟的香蕉，所以又叫'香蕉花'。",emoji:"🌸"},
+  {id:"nandina",name:"南天竹",latinName:"Nandina domestica",category:"plant",categoryLabel:"绿植",description:"常绿灌木，叶片三回羽状，秋冬叶变红，果实鲜红。",habitat:"耐阴耐寒，适应性强。",ecologicalRole:"冬季红色果实为鸟类提供食物。",features:["秋冬红叶","红果","耐阴"],campusDistribution:"假山旁、建筑角落",funFact:"南天竹秋冬叶变红果实红艳，是园林中的'红叶红果'明星。",emoji:"🍁"},
+  {id:"fatsia",name:"八角金盘",latinName:"Fatsia japonica",category:"plant",categoryLabel:"绿植",description:"常绿灌木，叶片大如手掌，通常有8个裂片。",habitat:"喜半阴湿润，不耐强光。",ecologicalRole:"秋冬开花为晚期传粉昆虫提供食物。",features:["叶大如掌","8裂片","耐阴"],campusDistribution:"建筑背阴面、大树下",funFact:"八角金盘的叶片通常有8个裂片，像手掌张开一样。",emoji:"🌿"},
+  {id:"fern",name:"肾蕨",latinName:"Nephrolepis cordifolia",category:"plant",categoryLabel:"绿植",description:"多年生常绿蕨类，叶片羽状，喜阴湿环境。",habitat:"喜阴湿，忌强光直射。",ecologicalRole:"指示环境湿度的天然'湿度计'。",features:["蕨类植物","羽状叶","喜湿"],campusDistribution:"假山石缝、阴湿墙角",funFact:"蕨类植物比恐龙还古老，3.6亿年前就存在了。",emoji:"🌿"},
+  {id:"peach-blossom",name:"碧桃",latinName:"Prunus persica",category:"plant",categoryLabel:"绿植",description:"落叶小乔木，春季开花，花重瓣，红粉色极为艳丽。",habitat:"喜光，耐旱，不耐水涝。",ecologicalRole:"早春大量开花吸引传粉昆虫。",features:["重瓣花","花色艳丽","春季开花"],campusDistribution:"校园景观区、草坪一角",funFact:"碧桃是桃花的观赏品种，不结果但花朵更美丽。",emoji:"🌸"},
+  {id:"golden-forsythia",name:"连翘",latinName:"Forsythia suspensa",category:"plant",categoryLabel:"绿植",description:"落叶灌木，早春先花后叶，满枝金黄。",habitat:"喜光，耐寒耐旱。",ecologicalRole:"早春为蜜蜂提供第一批花蜜。",features:["早春金黄","先花后叶","耐寒"],campusDistribution:"校园步道旁、花坛边缘",funFact:"连翘是春天最早开花的灌木之一，是春天的'信号兵'。",emoji:"💛"},
+  {id:"iris",name:"鸢尾",latinName:"Iris tectorum",category:"plant",categoryLabel:"绿植",description:"多年生草本，叶片剑形，花紫蓝色如蝴蝶。",habitat:"喜光耐半阴，适应性强。",ecologicalRole:"湿地植物，净化水质。",features:["蝴蝶花形","剑形叶","紫蓝色"],campusDistribution:"水池边、湿地花坛",funFact:"鸢尾花因花瓣形如鸢鸟尾巴而得名，法国国花。",emoji:"💜"},
+  {id:"clover",name:"三叶草",latinName:"Trifolium repens",category:"plant",categoryLabel:"绿植",description:"多年生草本，叶片三出复叶，偶尔出现四叶变异。",habitat:"适应性强，可作草坪覆盖物。",ecologicalRole:"固氮植物，改善土壤肥力。",features:["三出复叶","固氮","偶尔四叶"],campusDistribution:"草坪中、道路缝隙",funFact:"找到四叶草的概率约1/10000，被视为幸运的象征。",emoji:"☘️"},
+  {id:"dandelion",name:"蒲公英",latinName:"Taraxacum mongolicum",category:"plant",categoryLabel:"绿植",description:"多年生草本，黄色花序，种子带白色绒毛可随风飘散。",habitat:"适应性极强，到处可见。",ecologicalRole:"早春蜜源植物，种子是鸟类食物。",features:["种子飞散","全草可食","黄色花"],campusDistribution:"草坪中、路边、墙角",funFact:"蒲公英种子可飘散数十公里，是大自然的'旅行家'。",emoji:"🌼"},
+  {id:"lotus",name:"荷花",latinName:"Nelumbo nucifera",category:"plant",categoryLabel:"绿植",description:"水生植物，叶片圆形浮于水面，花朵大而美丽，出淤泥而不染。",habitat:"栖息于浅水池塘和湖泊中。",ecologicalRole:"净化水质，为水生生物提供栖息地。",features:["出淤泥不染","叶圆形","花大而美"],campusDistribution:"校园荷花池、景观水池",funFact:"荷花叶面有超疏水结构，水滴会自动滚落带走灰尘。",emoji:"🪷"},
 
-  // ========== 鸟类 (5种) ==========
-  {
-    id: "sparrow",
-    name: "麻雀",
-    latinName: "Passer montanus",
-    category: "bird",
-    categoryLabel: "鸟类",
-    description: "小型鸟类，体长14厘米左右。头顶栗色，脸颊白色有明显黑斑，背部棕褐色有纵纹。喜群居，常见于人类活动区域。",
-    habitat: "与人类伴居，栖息于建筑物缝隙、屋檐下、树洞中。适应城市和乡村环境。",
-    ecologicalRole: "捕食害虫，传播植物种子，是城市生态链中重要的初级消费者。",
-    features: ["脸颊白斑黑斑", "喜群居活动", "叫声叽叽喳喳", "与人类伴居"],
-    campusDistribution: "食堂附近、宿舍楼周围、操场边树木上",
-    funFact: "麻雀飞行时走波浪形路线，在地面上是双脚跳跃前进的，而不是像大多数鸟一样交替行走。",
-    emoji: "🐦"
-  },
-  {
-    id: "pigeon",
-    name: "鸽子",
-    latinName: "Columba livia domestica",
-    category: "bird",
-    categoryLabel: "鸟类",
-    description: "中型鸟类，体长30-35厘米。羽色多变，常见灰蓝色、白色、褐色。颈部有紫绿色金属光泽。善飞行，归巢能力强。",
-    habitat: "栖息于建筑物屋檐、阳台、广场等开阔区域。常在地面觅食，喜集群活动。",
-    ecologicalRole: "传播植物种子，控制昆虫数量，是城市生态系统的重要组成部分。",
-    features: ["归巢能力极强", "颈部金属光泽", "羽色丰富多样", "善于飞行"],
-    campusDistribution: "教学楼主楼广场、图书馆前广场、体育馆屋顶",
-    funFact: "鸽子的归巢能力极强，可以飞行上千公里后准确回到出生地。古代用信鸽传递书信。",
-    emoji: "🕊️"
-  },
-  {
-    id: "magpie",
-    name: "喜鹊",
-    latinName: "Pica pica",
-    category: "bird",
-    categoryLabel: "鸟类",
-    description: "中型鸟类，体长40-50厘米（含长尾）。体羽黑白相间，肩羽和腹部白色，其余部分黑色泛蓝紫色金属光泽。",
-    habitat: "栖息于开阔的林地、农田和城镇公园。在高大的树木上筑巢，巢呈球形。",
-    ecologicalRole: "杂食性，捕食害虫和小型动物，清除腐肉，有助于控制害虫种群。",
-    features: ["黑白羽毛对比鲜明", "长尾巴", "聪明善模仿", "叫声响亮"],
-    campusDistribution: "高大乔木上、操场周边、校门口大树上",
-    funFact: "喜鹊是鸟类中最聪明的物种之一，能通过镜像测试（自我认知能力），还会使用工具和解决问题。",
-    emoji: "🐦"
-  },
-  {
-    id: "chinese-bulbul",
-    name: "白头鹎",
-    latinName: "Pycnonotus sinensis",
-    category: "bird",
-    categoryLabel: "鸟类",
-    description: "中小型鸟类，体长17-22厘米。头顶黑色，后枕部有一大块白斑（白头），背部黄绿色，尾羽末端白色。",
-    habitat: "栖息于低海拔的树林、果园、公园和花园。喜欢人类活动区域，不怕人。",
-    ecologicalRole: "杂食性，食用水果帮助传播种子，也捕食昆虫控制害虫数量。",
-    features: ["头顶白斑显著", "鸣声悦耳", "不怕人", "喜食果实"],
-    campusDistribution: "校园果园、食堂附近树上、宿舍楼下绿化带",
-    funFact: "白头鹎又叫'白头翁'，因其头顶白色羽毛像白发而得名，是中国南方最常见的鸟类之一。",
-    emoji: "🐦"
-  },
-  {
-    id: "blackbird",
-    name: "乌鸫",
-    latinName: "Turdus mandarinus",
-    category: "bird",
-    categoryLabel: "鸟类",
-    description: "中型鸟类，体长25-28厘米。雄鸟全身黑色，喙和眼圈橙黄色，非常醒目。雌鸟深褐色，胸部有斑纹。",
-    habitat: "栖息于林地、公园、花园和草坪。喜在湿润的草地上觅食蚯蚓和昆虫。",
-    ecologicalRole: "控制蚯蚓和昆虫数量，传播植物种子，是城市绿地生态系统的重要成员。",
-    features: ["雄鸟全黑黄喙", "鸣声婉转悠扬", "喜在草地觅食", "胆小谨慎"],
-    campusDistribution: "草坪上、花园中、雨后常见于步道上",
-    funFact: "乌鸫的歌声是鸟类中最悦耳的之一，能模仿多种鸟叫声，常在清晨和傍晚鸣唱。",
-    emoji: "🐦"
-  },
+  // ========== 鸟类 (20种) ==========
+  {id:"sparrow",name:"麻雀",latinName:"Passer montanus",category:"bird",categoryLabel:"鸟类",description:"小型鸟类，脸颊白色有黑斑，喜群居。",habitat:"与人类伴居，栖息于建筑缝隙中。",ecologicalRole:"捕食害虫，传播植物种子。",features:["脸颊白斑","双脚跳","喜群居"],campusDistribution:"食堂附近、宿舍楼周围",funFact:"麻雀在地面上是双脚跳跃前进的。",emoji:"🐦"},
+  {id:"pigeon",name:"鸽子",latinName:"Columba livia",category:"bird",categoryLabel:"鸟类",description:"中型鸟类，羽色多变，颈部有金属光泽。",habitat:"栖息于建筑屋檐、广场。",ecologicalRole:"传播种子，控制昆虫数量。",features:["归巢力强","金属光泽","善飞"],campusDistribution:"广场、图书馆前",funFact:"鸽子可飞行上千公里后准确回到出生地。",emoji:"🕊️"},
+  {id:"magpie",name:"喜鹊",latinName:"Pica pica",category:"bird",categoryLabel:"鸟类",description:"中型鸟类，黑白羽毛，长尾巴，叫声响亮。",habitat:"高大乔木上筑球形巢。",ecologicalRole:"杂食性，捕食害虫和小型动物。",features:["黑白分明","聪明","叫声响"],campusDistribution:"大树上、操场周边",funFact:"喜鹊能通过镜像测试，是鸟类中最聪明的之一。",emoji:"🐦"},
+  {id:"chinese-bulbul",name:"白头鹎",latinName:"Pycnonotus sinensis",category:"bird",categoryLabel:"鸟类",description:"中小型鸟类，头顶黑色后枕有白斑。",habitat:"喜人类活动区域，不怕人。",ecologicalRole:"食用水果帮助传播种子。",features:["头顶白斑","鸣声悦耳","不怕人"],campusDistribution:"校园果树、绿化带",funFact:"白头鹎又叫'白头翁'，是中国南方最常见的鸟类。",emoji:"🐦"},
+  {id:"blackbird",name:"乌鸫",latinName:"Turdus mandarinus",category:"bird",categoryLabel:"鸟类",description:"雄鸟全身黑色，喙和眼圈橙黄色。",habitat:"喜在湿润草地上觅食。",ecologicalRole:"控制蚯蚓和昆虫数量。",features:["黑身黄喙","歌声优美","喜草地"],campusDistribution:"草坪上、雨后步道",funFact:"乌鸫歌声是鸟类中最悦耳的之一，能模仿多种鸟叫。",emoji:"🐦"},
+  {id:"barn-swallow",name:"家燕",latinName:"Hirundo rustica",category:"bird",categoryLabel:"鸟类",description:"小型鸟类，上体蓝黑色，前额和喉部红色，尾叉深。",habitat:"在建筑屋檐下筑泥巢。",ecologicalRole:"大量捕食飞行昆虫，是天然害虫控制者。",features:["飞行捕虫","泥巢","尾巴分叉"],campusDistribution:"教学楼屋檐下、走廊",funFact:"家燕每年从南非飞到中国繁殖，飞行距离超过1万公里。",emoji:"🐦"},
+  {id:"spotted-dove",name:"珠颈斑鸠",latinName:"Spilopelia chinensis",category:"bird",categoryLabel:"鸟类",description:"中型鸟类，颈部有黑白相间的珠状斑纹。",habitat:"栖息于树林和灌丛中。",ecologicalRole:"传播植物种子。",features:["颈部珠斑","叫声咕咕","温和"],campusDistribution:"校园树林、灌木丛",funFact:"珠颈斑鸠颈部的黑白斑点像一串珍珠项链。",emoji:"🐦"},
+  {id:"white-wagtail",name:"白鹡鸰",latinName:"Motacilla alba",category:"bird",categoryLabel:"鸟类",description:"小型鸟类，黑白相间，行走时尾部不停上下摆动。",habitat:"栖息于水边、草坪和道路旁。",ecologicalRole:"捕食地面和水面昆虫。",features:["尾上下摆","黑白配","喜水边"],campusDistribution:"池塘边、操场草坪",funFact:"白鹡鸰走路时尾巴永远在上下摆动，像在打节拍。",emoji:"🐦"},
+  {id:"light-vented-bulbul",name:"红耳鹎",latinName:"Pycnonotus jocosus",category:"bird",categoryLabel:"鸟类",description:"中小型鸟类，头顶有黑色羽冠，耳部有红色斑块。",habitat:"栖息于灌木丛和花园中。",ecologicalRole:"食果传播种子。",features:["黑色羽冠","红色耳斑","活泼"],campusDistribution:"花园灌木丛、果树上",funFact:"红耳鹎头顶的羽冠像戴了一顶小皇冠。",emoji:"🐦"},
+  {id:"kingfisher",name:"翠鸟",latinName:"Alcedo atthis",category:"bird",categoryLabel:"鸟类",description:"小型鸟类，羽毛翠蓝色极为醒目，善潜水捕鱼。",habitat:"栖息于溪流、池塘边。",ecologicalRole:"控制小鱼和水生昆虫数量。",features:["翠蓝羽毛","潜水捕鱼","速度快"],campusDistribution:"校园景观池塘边",funFact:"翠鸟俯冲捕鱼时速可达80公里，是鸟类中的'潜水冠军'。",emoji:"💎"},
+  {id:"hoopoe",name:"戴胜",latinName:"Upupa epops",category:"bird",categoryLabel:"鸟类",description:"中型鸟类，头顶有扇形羽冠，喙细长弯曲。",habitat:"栖息于开阔草地和树林。",ecologicalRole:"捕食地下害虫如蝼蛄。",features:["扇形羽冠","长弯喙","独特"],campusDistribution:"操场草坪、稀疏林带",funFact:"戴胜的羽冠展开像印第安人的头饰，非常醒目。",emoji:"🐦"},
+  {id:"woodpecker",name:"大斑啄木鸟",latinName:"Dendrocopos major",category:"bird",categoryLabel:"鸟类",description:"中型鸟类，黑白羽毛，腹部红色，善啄树干。",habitat:"栖息于有大树的林地。",ecologicalRole:"控制树干害虫，废弃巢洞为其他鸟提供住所。",features:["啄木","红腹部","树洞巢"],campusDistribution:"校园老树林、大树区域",funFact:"啄木鸟啄木时头部承受的冲击力是人体能承受的1000倍。",emoji:"🐦"},
+  {id:"long-tailed-shrike",name:"棕背伯劳",latinName:"Lanius schach",category:"bird",categoryLabel:"鸟类",description:"中型鸟类，黑色眼罩状斑纹，尾长，凶猛好斗。",habitat:"栖息于灌丛和电线上。",ecologicalRole:"控制昆虫和小型脊椎动物。",features:["黑色眼罩","凶猛","挂猎物"],campusDistribution:"电线上、灌丛顶部",funFact:"伯劳有把猎物挂在树枝刺上的习惯，被称为'屠夫鸟'。",emoji:"🐦"},
+  {id:"crow",name:"大嘴乌鸦",latinName:"Corvus macrorhynchos",category:"bird",categoryLabel:"鸟类",description:"大型鸟类，全身黑色，喙粗壮，极为聪明。",habitat:"栖息于高大树木和建筑上。",ecologicalRole:"清除腐肉和垃圾，控制害虫。",features:["极聪明","使用工具","社会性"],campusDistribution:"高大树顶、食堂附近",funFact:"乌鸦能制造和使用工具，智力相当于7岁人类儿童。",emoji:"🐦"},
+  {id:"oriental-turtle-dove",name:"山斑鸠",latinName:"Streptopelia orientalis",category:"bird",categoryLabel:"鸟类",description:"中型鸟类，体褐色，颈部有条纹斑纹。",habitat:"栖息于林地和灌丛。",ecologicalRole:"传播植物种子。",features:["褐色条纹","叫声低沉","胆小"],campusDistribution:"校园树林、山坡绿化带",funFact:"山斑鸠的叫声'咕咕-咕'听起来像在说'工作好苦'。",emoji:"🐦"},
+  {id:"nightjar",name:"夜鹭",latinName:"Nycticorax nycticorax",category:"bird",categoryLabel:"鸟类",description:"中型涉禽，头部和背部黑色，翅膀灰色，眼红色。",habitat:"栖息于水边树林。",ecologicalRole:"控制鱼虾和水生昆虫数量。",features:["夜行性","红色眼","水边"],campusDistribution:"池塘边树上、湿地",funFact:"夜鹭主要在黄昏和夜间活动捕食，白天在树上休息。",emoji:"🐦"},
+  {id:"drongo",name:"黑卷尾",latinName:"Dicrurus macrocercus",category:"bird",categoryLabel:"鸟类",description:"中型鸟类，全身漆黑，尾羽外侧向上卷曲。",habitat:"栖息于开阔林地。",ecologicalRole:"捕食飞行昆虫。",features:["全身黑","卷尾","善模仿"],campusDistribution:"校园大树、开阔区域",funFact:"黑卷尾能模仿猛禽叫声吓退其他鸟类，独占食物。",emoji:"🐦"},
+  {id:"myna",name:"八哥",latinName:"Acridotheres cristatellus",category:"bird",categoryLabel:"鸟类",description:"中型鸟类，全身黑色，额部有竖立羽冠，善模仿人语。",habitat:"栖息于城市、农田等开放环境。",ecologicalRole:"控制害虫数量，清除有机废弃物。",features:["模仿人语","额部羽冠","杂食"],campusDistribution:"食堂附近、操场边",funFact:"八哥能学会模仿人类说话和各种声音。",emoji:"🐦"},
+  {id:"robin",name:"北红尾鸲",latinName:"Phoenicurus auroreus",category:"bird",categoryLabel:"鸟类",description:"小型鸟类，雄鸟黑白橙三色，尾部红色不停颤动。",habitat:"栖息于建筑周围和灌丛。",ecologicalRole:"捕食昆虫。",features:["尾部颤动","三色羽毛","不怕人"],campusDistribution:"教学楼窗台、花坛边",funFact:"北红尾鸲的尾巴会不停上下颤动，像在打招呼。",emoji:"🐦"},
+  {id:"egret",name:"白鹭",latinName:"Egretta garzetta",category:"bird",categoryLabel:"鸟类",description:"中型涉禽，全身洁白，腿长颈长，姿态优雅。",habitat:"栖息于水边湿地。",ecologicalRole:"控制鱼类和水生生物数量。",features:["洁白优雅","长腿长颈","水边"],campusDistribution:"校园湖泊、人工湿地",funFact:"白鹭是水质指示物种，白鹭多的地方水质一定好。",emoji:"🤍"},
 
-  // ========== 昆虫类 (5种) ==========
-  {
-    id: "cabbage-butterfly",
-    name: "菜粉蝶",
-    latinName: "Pieris rapae",
-    category: "insect",
-    categoryLabel: "昆虫",
-    description: "中型蝴蝶，翅展4-5厘米。翅膀白色，前翅顶角黑色，雌蝶翅面有两个黑斑。幼虫青绿色，俗称菜青虫。",
-    habitat: "栖息于菜园、花园、公园等有十字花科植物的区域。成虫喜在阳光下飞舞。",
-    ecologicalRole: "成虫是重要的传粉者，帮助多种植物完成授粉。是食物链中鸟类和蜘蛛的食物来源。",
-    features: ["翅膀白色", "飞行缓慢优雅", "喜访花吸蜜", "幼虫食十字花科"],
-    campusDistribution: "校园花圃、景观花坛、实验菜园附近",
-    funFact: "菜粉蝶能看到紫外线光，它们通过花瓣上的紫外线图案来定位花蜜的位置。",
-    emoji: "🦋"
-  },
-  {
-    id: "honeybee",
-    name: "蜜蜂",
-    latinName: "Apis cerana",
-    category: "insect",
-    categoryLabel: "昆虫",
-    description: "社会性昆虫，体长1-1.5厘米。身体黄褐色与黑色条纹相间，全身有绒毛。工蜂有花粉篮和蜜囊。",
-    habitat: "在树洞、屋檐下等避风处筑巢。活跃于有开花植物的区域，飞行范围广。",
-    ecologicalRole: "最重要的传粉昆虫之一，维持植物繁殖和生态系统平衡。蜂蜜和蜂蜡对人类有重要价值。",
-    features: ["社会性群居", "重要传粉者", "可生产蜂蜜", "有舞蹈通信行为"],
-    campusDistribution: "校园花圃、果园、绿化灌木丛中",
-    funFact: "蜜蜂通过'8字舞'告诉同伴食物的方向和距离，一次可飞行5公里采集花蜜。",
-    emoji: "🐝"
-  },
-  {
-    id: "dragonfly",
-    name: "蜻蜓",
-    latinName: "Anax parthenope",
-    category: "insect",
-    categoryLabel: "昆虫",
-    description: "大型蜻蜓，体长7-8厘米，翅展10厘米左右。复眼巨大，占据头部大部分。胸部绿色或褐色，翅膀透明有脉络。",
-    habitat: "栖息于池塘、湖泊、水渠等水域附近。幼虫（水虿）在水中生活1-2年。",
-    ecologicalRole: "捕食蚊子等飞行昆虫，是天然的害虫控制者。幼虫捕食蚊幼虫，控制蚊虫数量。",
-    features: ["复眼巨大", "飞行技巧高超", "可悬停倒飞", "捕食蚊蝇"],
-    campusDistribution: "校园景观池塘、喷水池附近、草坪上空",
-    funFact: "蜻蜓是昆虫界的'飞行之王'，可以悬停、倒飞、急速转向，飞行速度可达每小时60公里。",
-    emoji: "🪰"
-  },
-  {
-    id: "ladybug",
-    name: "瓢虫",
-    latinName: "Harmonia axyridis",
-    category: "insect",
-    categoryLabel: "昆虫",
-    description: "小型甲虫，体长5-8毫米。鞘翅橙红色或黄色，有数量不等的黑色斑点（通常5-19个）。身体半球形。",
-    habitat: "栖息于各种有蚜虫的植物上。冬季群集在建筑物缝隙、落叶层中越冬。",
-    ecologicalRole: "重要的天敌昆虫，一只瓢虫一生可捕食数千只蚜虫，是生物防治的明星物种。",
-    features: ["鞘翅红/黄带黑点", "捕食蚜虫", "遇险装死", "冬季群集越冬"],
-    campusDistribution: "校园花坛灌木上、教学楼窗台、花圃植物叶片上",
-    funFact: "瓢虫遇到危险时会装死并从腿关节分泌黄色液体（含苦味毒素），让捕食者觉得不好吃。",
-    emoji: "🐞"
-  },
-  {
-    id: "ant",
-    name: "蚂蚁",
-    latinName: "Formica japonica",
-    category: "insect",
-    categoryLabel: "昆虫",
-    description: "社会性昆虫，工蚁体长4-6毫米。身体黑色或红褐色，分头、胸、腹三部分，有触角和强壮的上颚。",
-    habitat: "在土壤中筑巢，巢穴结构复杂。活跃于地面、树干、石块下等各种环境中。",
-    ecologicalRole: "分解有机物，改善土壤结构（翻松土壤），传播植物种子，是生态系统的重要分解者。",
-    features: ["社会性分工明确", "力量巨大(举起体重50倍)", "化学通讯", "改善土壤"],
-    campusDistribution: "校园道路缝隙、树根周围、花坛土壤中",
-    funFact: "蚂蚁能举起自身体重50倍的物体，按体重比是地球上力量最大的动物之一。一个蚁巢可有数万只蚂蚁。",
-    emoji: "🐜"
-  }
+  // ========== 昆虫/节肢动物 (20种) ==========
+  {id:"cabbage-butterfly",name:"菜粉蝶",latinName:"Pieris rapae",category:"insect",categoryLabel:"昆虫",description:"中型蝴蝶，翅膀白色，幼虫食十字花科植物。",habitat:"有十字花科植物的区域。",ecologicalRole:"成虫是重要传粉者。",features:["白色翅膀","飞行优雅","喜访花"],campusDistribution:"花圃、花坛",funFact:"菜粉蝶能看到紫外线光定位花蜜位置。",emoji:"🦋"},
+  {id:"honeybee",name:"蜜蜂",latinName:"Apis cerana",category:"insect",categoryLabel:"昆虫",description:"社会性昆虫，黄褐色条纹，有花粉篮和蜜囊。",habitat:"树洞、屋檐下筑巢。",ecologicalRole:"最重要传粉昆虫之一。",features:["社会性","传粉","产蜂蜜"],campusDistribution:"花圃、灌木丛",funFact:"蜜蜂通过'8字舞'告诉同伴食物方向和距离。",emoji:"🐝"},
+  {id:"dragonfly",name:"蜻蜓",latinName:"Anax parthenope",category:"insect",categoryLabel:"昆虫",description:"大型蜻蜓，复眼巨大，翅膀透明。",habitat:"池塘、水渠等水域附近。",ecologicalRole:"捕食蚊子等飞行昆虫。",features:["复眼巨大","悬停倒飞","捕食蚊蝇"],campusDistribution:"池塘附近、草坪上空",funFact:"蜻蜓飞行速度可达60km/h，是昆虫界的'飞行之王'。",emoji:"🪰"},
+  {id:"ladybug",name:"瓢虫",latinName:"Harmonia axyridis",category:"insect",categoryLabel:"昆虫",description:"小型甲虫，鞘翅红/黄色带黑斑，半球形。",habitat:"有蚜虫的植物上。",ecologicalRole:"一生捕食数千只蚜虫。",features:["红鞘翅","捕食蚜虫","装死"],campusDistribution:"花坛灌木上、窗台",funFact:"瓢虫遇险时装死并分泌苦味液体驱赶捕食者。",emoji:"🐞"},
+  {id:"ant",name:"蚂蚁",latinName:"Formica japonica",category:"insect",categoryLabel:"昆虫",description:"社会性昆虫，黑色或红褐色，有强壮上颚。",habitat:"土壤中筑复杂巢穴。",ecologicalRole:"分解有机物，改善土壤结构。",features:["分工明确","力大","化学通讯"],campusDistribution:"道路缝隙、树根周围",funFact:"蚂蚁能举起自身体重50倍的物体。",emoji:"🐜"},
+  {id:"cicada",name:"蝉",latinName:"Cryptotympana atrata",category:"insect",categoryLabel:"昆虫",description:"大型昆虫，雄虫腹部有发声器，鸣声响亮。",habitat:"栖息于高大乔木上。",ecologicalRole:"幼虫在土中活动可松土。",features:["夏日鸣叫","雄鸣响亮","蜕皮入药"],campusDistribution:"校园大树上",funFact:"蝉在地下生活3-7年，出土后只能活几周。",emoji:"🦗"},
+  {id:"praying-mantis",name:"螳螂",latinName:"Tenodera sinensis",category:"insect",categoryLabel:"昆虫",description:"大型捕食昆虫，前肢如镰刀，头部三角形可转动。",habitat:"栖息于草丛和灌木上。",ecologicalRole:"顶级昆虫猎手，控制害虫。",features:["前肢如刀","头可转动","伏击猎手"],campusDistribution:"草丛、低矮灌木",funFact:"螳螂头部可180度转动，是昆虫中唯一能'回头看'的。",emoji:"🦗"},
+  {id:"firefly",name:"萤火虫",latinName:"Luciola lateralis",category:"insect",categoryLabel:"昆虫",description:"小型甲虫，腹部末端可发出黄绿色荧光。",habitat:"喜湿润环境，幼虫水栖。",ecologicalRole:"幼虫捕食蜗牛，成虫指示环境质量。",features:["发光","夜行","水质指示"],campusDistribution:"校园湿地旁、草丛中",funFact:"萤火虫发光是为了求偶，每种萤火虫的闪烁频率不同。",emoji:"✨"},
+  {id:"grasshopper",name:"蝗虫",latinName:"Locusta migratoria",category:"insect",categoryLabel:"昆虫",description:"中大型昆虫，后足发达善跳，体色绿色或褐色。",habitat:"栖息于草坪和开阔地带。",ecologicalRole:"食物链重要环节，是鸟类食物来源。",features:["善跳","体色绿","食草"],campusDistribution:"操场草坪、荒地",funFact:"蝗虫跳跃距离可达身体长度的20倍。",emoji:"🦗"},
+  {id:"cricket",name:"蟋蟀",latinName:"Gryllus bimaculatus",category:"insect",categoryLabel:"昆虫",description:"中型昆虫，善鸣叫，通过翅膀摩擦发声。",habitat:"栖息于石缝、草丛和土洞中。",ecologicalRole:"分解有机物，食物链中间环节。",features:["夜间鸣叫","善斗","翅摩擦发声"],campusDistribution:"石缝下、草丛中",funFact:"通过蟋蟀鸣叫频率可以估算气温。",emoji:"🦗"},
+  {id:"moth",name:"天蛾",latinName:"Agrius convolvuli",category:"insect",categoryLabel:"昆虫",description:"大型蛾类，翅膀灰褐色有花纹，可悬停吸蜜。",habitat:"夜间活动，趋光。",ecologicalRole:"夜间重要传粉者。",features:["夜间飞行","悬停吸蜜","趋光"],campusDistribution:"路灯旁、花丛",funFact:"天蛾可以像蜂鸟一样悬停在空中吸食花蜜。",emoji:"🦋"},
+  {id:"aphid",name:"蚜虫",latinName:"Aphidoidea",category:"insect",categoryLabel:"昆虫",description:"微小昆虫，群集于植物嫩梢吸食汁液。",habitat:"各种植物的嫩叶嫩梢上。",ecologicalRole:"食物链底层，是瓢虫等天敌的食物。",features:["群集","繁殖快","分泌蜜露"],campusDistribution:"各种植物嫩梢上",funFact:"蚜虫可以孤雌生殖，一只雌虫就能产生大量后代。",emoji:"🐛"},
+  {id:"mosquito",name:"蚊子",latinName:"Culex pipiens",category:"insect",categoryLabel:"昆虫",description:"小型飞虫，雌虫吸血，传播多种疾病。",habitat:"幼虫孳生于积水处。",ecologicalRole:"食物链环节，幼虫是水生态系统分解者。",features:["雌虫吸血","传播疾病","趋CO₂"],campusDistribution:"积水处、草丛",funFact:"蚊子是被二氧化碳和体温吸引来找人的。",emoji:"🦟"},
+  {id:"housefly",name:"家蝇",latinName:"Musca domestica",category:"insect",categoryLabel:"昆虫",description:"中型飞虫，全身有毛，复眼巨大。",habitat:"人类活动区域。",ecologicalRole:"分解有机物，加速物质循环。",features:["复眼巨大","繁殖快","杂食"],campusDistribution:"食堂、垃圾桶附近",funFact:"家蝇的复眼由4000个小眼组成。",emoji:"🪰"},
+  {id:"longhorn-beetle",name:"天牛",latinName:"Anoplophora glabripennis",category:"insect",categoryLabel:"昆虫",description:"中大型甲虫，触角极长，幼虫蛀食树干。",habitat:"有树木的区域。",ecologicalRole:"分解枯死木材，加速森林更新。",features:["触角极长","幼虫蛀木","危害树木"],campusDistribution:"校园老树、枯树",funFact:"天牛触角长度可达身体的两倍。",emoji:"🪲"},
+  {id:"spider",name:"蜘蛛",latinName:"Araneae",category:"insect",categoryLabel:"昆虫",description:"节肢动物，8条腿，善结网或游猎捕虫。",habitat:"各种环境。",ecologicalRole:"控制昆虫数量的天然害虫防治者。",features:["8条腿","结网","丝线"],campusDistribution:"窗框、屋檐、草丛",funFact:"蜘蛛丝的强度比钢还高5倍。",emoji:"🕷️"},
+  {id:"snail",name:"蜗牛",latinName:"Bradybaena similaris",category:"insect",categoryLabel:"昆虫",description:"软体动物，背负螺旋形壳，行动缓慢。",habitat:"喜潮湿环境。",ecologicalRole:"分解落叶，改善土壤。",features:["背壳","缓慢","黏液痕迹"],campusDistribution:"花坛潮湿处、墙角",funFact:"蜗牛有约25000颗牙齿，比任何动物都多。",emoji:"🐌"},
+  {id:"centipede",name:"蜈蚣",latinName:"Scolopendra subspinipes",category:"insect",categoryLabel:"昆虫",description:"多足类节肢动物，身体扁平，有很多对足。",habitat:"石块下、落叶层中。",ecologicalRole:"捕食害虫和小型无脊椎动物。",features:["多对足","毒腺","夜行"],campusDistribution:"石块下、落叶层",funFact:"蜈蚣的'百足'实际上并没有100只脚。",emoji:"🐛"},
+  {id:"millipede",name:"马陆",latinName:"Trigoniulus corallinus",category:"insect",categoryLabel:"昆虫",description:"多足类节肢动物，身体圆柱形，受惊时卷成球。",habitat:"落叶层和潮湿土壤中。",ecologicalRole:"重要的有机物分解者。",features:["卷成球","每节两对足","食腐"],campusDistribution:"落叶层下、潮湿土壤",funFact:"马陆受惊时会卷成一个完美的球。",emoji:"🐛"},
+  {id:"earwig",name:"蠼螋",latinName:"Forficula auricularia",category:"insect",categoryLabel:"昆虫",description:"小型昆虫，腹部末端有一对钳状尾铗。",habitat:"石块下、树皮缝隙。",ecologicalRole:"捕食蚜虫等小型害虫。",features:["尾部钳子","杂食","夜行"],campusDistribution:"花盆下、石块缝隙",funFact:"蠼螋的尾铗用于捕食和防御。",emoji:"🐛"},
+
+  // ========== 真菌类 (8种) ==========
+  {id:"cloud-ear",name:"木耳",latinName:"Auricularia auricula",category:"fungi",categoryLabel:"真菌",description:"耳形真菌，质地柔软有弹性。",habitat:"生长于枯死树木上。",ecologicalRole:"分解枯木，加速物质循环。",features:["耳形","可食用","木腐"],campusDistribution:"校园枯树、树桩上",funFact:"木耳富含铁元素，是素食者补铁的优质食物。",emoji:"🍄"},
+  {id:"reishi",name:"灵芝",latinName:"Ganoderma lucidum",category:"fungi",categoryLabel:"真菌",description:"大型真菌，表面光亮呈红褐色。",habitat:"生长于老树根部。",ecologicalRole:"分解枯死木材。",features:["光亮表面","药用","木质化"],campusDistribution:"校园老树根部",funFact:"灵芝被称为'仙草'，有2000多年药用历史。",emoji:"🍄"},
+  {id:"mushroom",name:"蘑菇",latinName:"Agaricus bisporus",category:"fungi",categoryLabel:"真菌",description:"伞形真菌，菌盖圆形，最常见食用菌。",habitat:"富含有机质的土壤中。",ecologicalRole:"分解有机物，循环养分。",features:["伞形","可食用","常见"],campusDistribution:"草坪上、花坛肥沃处",funFact:"蘑菇和人类的基因相似度比和植物还高。",emoji:"🍄"},
+  {id:"ink-cap",name:"墨汁鬼伞",latinName:"Coprinopsis atramentaria",category:"fungi",categoryLabel:"真菌",description:"伞形真菌，成熟后菌盖自溶变成黑色墨汁状。",habitat:"草坪上、树根旁。",ecologicalRole:"快速分解有机物。",features:["自溶成墨","生长迅速","丛生"],campusDistribution:"草坪上、树根旁",funFact:"墨汁鬼伞成熟后会把自己'融化'成黑色液体来散播孢子。",emoji:"🍄"},
+  {id:"bracket-fungus",name:"树舌",latinName:"Ganoderma applanatum",category:"fungi",categoryLabel:"真菌",description:"多年生真菌，附着于树干侧面。",habitat:"活树或枯树的树干上。",ecologicalRole:"分解枯死木材。",features:["贴树干","多年生","可画画"],campusDistribution:"校园老树树干上",funFact:"树舌的下面可以写字画画，被称为'艺术家菌'。",emoji:"🍄"},
+  {id:"puffball",name:"马勃",latinName:"Calvatia gigantea",category:"fungi",categoryLabel:"真菌",description:"球形真菌，幼时白色，成熟后内部变褐色粉末。",habitat:"草坪和林缘。",ecologicalRole:"分解有机物。",features:["球形","成熟爆裂","粉末孢子"],campusDistribution:"草坪上、林缘",funFact:"马勃成熟后一踩就爆裂喷出大量孢子烟雾。",emoji:"🍄"},
+  {id:"stinkhorn",name:"鬼笔",latinName:"Phallus impudicus",category:"fungi",categoryLabel:"真菌",description:"奇特真菌，从蛋状结构中长出，顶部有恶臭粘液。",habitat:"富含腐殖质的土壤。",ecologicalRole:"分解有机物，吸引蝇类传播孢子。",features:["恶臭","蛋状出生","蝇类传播"],campusDistribution:"花坛肥沃土壤",funFact:"鬼笔发出腐肉气味吸引苍蝇来帮它传播孢子。",emoji:"🍄"},
+  {id:"moss",name:"苔藓",latinName:"Bryophyta",category:"fungi",categoryLabel:"真菌",description:"小型非维管植物，密集丛生，喜湿润环境。",habitat:"阴湿的石面、树干和土壤上。",ecologicalRole:"保持水土，指示空气质量。",features:["喜湿","指示环境","保持水土"],campusDistribution:"石阶缝隙、树干阴面",funFact:"苔藓是地球上最早的陆生植物之一，已有4.5亿年历史。",emoji:"🌿"},
+
+  // ========== 两栖/爬行类 (7种) ==========
+  {id:"frog",name:"黑斑蛙",latinName:"Pelophylax nigromaculatus",category:"amphibian",categoryLabel:"两栖爬行",description:"中型蛙类，背部绿色有黑色斑点。",habitat:"栖息于池塘、水田等水域。",ecologicalRole:"大量捕食害虫，天然农田卫士。",features:["绿色背","善跳","鸣叫响亮"],campusDistribution:"校园池塘、水景",funFact:"黑斑蛙一次可产卵数千粒。",emoji:"🐸"},
+  {id:"toad",name:"中华大蟾蜍",latinName:"Bufo gargarizans",category:"amphibian",categoryLabel:"两栖爬行",description:"大型两栖动物，皮肤粗糙有疣粒。",habitat:"栖息于各种陆地环境。",ecologicalRole:"大量捕食昆虫和蜗牛。",features:["皮肤粗糙","有毒腺","耐旱"],campusDistribution:"花坛、墙角、草丛",funFact:"蟾蜍耳后的毒腺分泌物叫'蟾酥'，是传统中药材。",emoji:"🐸"},
+  {id:"gecko",name:"壁虎",latinName:"Gekko japonicus",category:"amphibian",categoryLabel:"两栖爬行",description:"小型爬行动物，趾端有吸盘，可爬墙壁。",habitat:"栖息于建筑墙壁和天花板。",ecologicalRole:"捕食蚊虫等小型昆虫。",features:["爬墙","断尾再生","夜行"],campusDistribution:"教学楼墙壁、走廊灯旁",funFact:"壁虎断尾可以再生，新尾巴比原来的短。",emoji:"🦎"},
+  {id:"skink",name:"石龙子",latinName:"Plestiodon chinensis",category:"amphibian",categoryLabel:"两栖爬行",description:"中型蜥蜴，身体光滑有金属光泽。",habitat:"栖息于石块下和草丛中。",ecologicalRole:"捕食昆虫和小型无脊椎动物。",features:["光滑鳞片","善跑","断尾"],campusDistribution:"石块下、花坛边",funFact:"石龙子身体表面像打了一层油一样光滑有光泽。",emoji:"🦎"},
+  {id:"turtle",name:"中华草龟",latinName:"Mauremys reevesii",category:"amphibian",categoryLabel:"两栖爬行",description:"中型淡水龟，背甲隆起有棱。",habitat:"栖息于池塘、溪流。",ecologicalRole:"控制水生植物和小型动物数量。",features:["背甲有棱","长寿","杂食"],campusDistribution:"校园景观池塘",funFact:"草龟是中国最常见的本土龟类，寿命可达50年以上。",emoji:"🐢"},
+  {id:"snake",name:"赤链蛇",latinName:"Dinodon rufozonatum",category:"amphibian",categoryLabel:"两栖爬行",description:"中型蛇类，体背有红黑相间环纹，微毒。",habitat:"栖息于石缝、草丛和水边。",ecologicalRole:"控制鼠类和蛙类数量。",features:["红黑环纹","微毒","夜行"],campusDistribution:"校园偏僻区域、石缝",funFact:"赤链蛇虽有毒但对人威胁很小。",emoji:"🐍"},
+  {id:"newt",name:"东方蝾螈",latinName:"Cynops orientalis",category:"amphibian",categoryLabel:"两栖爬行",description:"小型两栖动物，腹部橙红色有黑斑。",habitat:"栖息于静水池塘和水草中。",ecologicalRole:"捕食蚊子幼虫和水生小型无脊椎动物。",features:["红黑腹部","有毒","水陆两栖"],campusDistribution:"校园景观水池",funFact:"东方蝾螈腹部鲜艳的红色是警告色。",emoji:"🦎"},
+
+  // ========== 小型哺乳动物 (5种) ==========
+  {id:"squirrel",name:"赤腹松鼠",latinName:"Callosciurus erythraeus",category:"mammal",categoryLabel:"哺乳",description:"小型哺乳动物，腹部橙红色，尾长蓬松。",habitat:"栖息于树林和公园。",ecologicalRole:"传播植物种子，帮助植物扩散。",features:["红腹部","善攀爬","储存食物"],campusDistribution:"校园树林、大树上",funFact:"松鼠会埋藏坚果当储备粮，常忘记位置，无意中帮植物播种。",emoji:"🐿️"},
+  {id:"bat",name:"东亚家蝠",latinName:"Pipistrellus abramus",category:"mammal",categoryLabel:"哺乳",description:"小型哺乳动物，前肢特化为翼，夜间飞行捕虫。",habitat:"栖息于建筑缝隙和树洞中。",ecologicalRole:"每晚捕食数千只蚊虫。",features:["夜行","超声波","捕蚊"],campusDistribution:"教学楼屋檐下、桥梁",funFact:"蝙蝠一晚上能吃掉自身体重一半的昆虫。",emoji:"🦇"},
+  {id:"hedgehog",name:"刺猬",latinName:"Erinaceus amurensis",category:"mammal",categoryLabel:"哺乳",description:"小型哺乳动物，背部布满硬刺，遇险卷成球。",habitat:"栖息于草丛和灌丛中。",ecologicalRole:"控制昆虫和蜗牛数量。",features:["满身硬刺","卷球防御","夜行"],campusDistribution:"校园偏僻草丛、灌丛",funFact:"刺猬身上约有5000-7000根硬刺。",emoji:"🦔"},
+  {id:"shrew",name:"臭鼩",latinName:"Suncus murinus",category:"mammal",categoryLabel:"哺乳",description:"小型哺乳动物，外形像老鼠但嘴尖长。",habitat:"栖息于草丛、石缝和建筑基础附近。",ecologicalRole:"大量捕食昆虫和无脊椎动物。",features:["尖嘴","有气味","食虫"],campusDistribution:"建筑基础附近、石缝",funFact:"臭鼩新陈代谢极快，每天需进食体重的食物量。",emoji:"🐭"},
+  {id:"rat",name:"褐家鼠",latinName:"Rattus norvegicus",category:"mammal",categoryLabel:"哺乳",description:"中型啮齿动物，体灰褐色，适应力极强。",habitat:"栖息于下水道、建筑基础和垃圾堆附近。",ecologicalRole:"食物链中的重要环节。",features:["适应力强","繁殖快","杂食"],campusDistribution:"食堂下水道、垃圾站",funFact:"褐家鼠能在马桶管道中游泳并爬上来。",emoji:"🐀"}
 ];
 
-// 获取所有分类
+// 获取所有分类（动态计算）
 function getCategories() {
-  return [
-    { id: "all", label: "全部", count: speciesList.length },
-    { id: "plant", label: "绿植", count: speciesList.filter(s => s.category === "plant").length },
-    { id: "bird", label: "鸟类", count: speciesList.filter(s => s.category === "bird").length },
-    { id: "insect", label: "昆虫", count: speciesList.filter(s => s.category === "insect").length }
-  ];
+  const categoryMap = {};
+  speciesList.forEach(s => {
+    if (!categoryMap[s.category]) {
+      categoryMap[s.category] = { id: s.category, label: s.categoryLabel, count: 0 };
+    }
+    categoryMap[s.category].count++;
+  });
+  const cats = [{ id: "all", label: "全部", count: speciesList.length }];
+  const order = ["plant", "bird", "insect", "fungi", "amphibian", "mammal"];
+  order.forEach(key => { if (categoryMap[key]) cats.push(categoryMap[key]); });
+  return cats;
 }
 
 // 根据分类筛选物种
