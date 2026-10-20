@@ -202,7 +202,8 @@ const App = (function() {
           ${filteredSpecies.map(species => `
             <div class="species-card ${Collection.isViewed(species.id) ? 'viewed' : ''}" 
                  onclick="App.showDetail('${species.id}')">
-              <div class="card-image">
+              <div class="card-image" data-species-id="${species.id}" data-latin="${species.latinName}">
+                <img class="card-photo" alt="${species.name}" style="display:none" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
                 <span class="card-emoji">${species.emoji}</span>
                 ${Collection.isViewed(species.id) ? '<span class="viewed-badge">✓</span>' : ''}
               </div>
@@ -244,7 +245,7 @@ const App = (function() {
       </div>
       
       <div class="detail-content">
-        <div class="detail-hero">
+        <div class="detail-hero" id="detail-hero" data-species-id="${species.id}" data-latin="${species.latinName}">
           <span class="detail-emoji">${species.emoji}</span>
           <div class="detail-title">
             <h2>${species.name}</h2>
@@ -431,6 +432,11 @@ const App = (function() {
     if (pageName === 'scan') {
       generateScanDemoQR();
     }
+    
+    // 加载卡片图片
+    if (pageName === 'gallery') {
+      loadGalleryImages();
+    }
   }
   
   /**
@@ -447,10 +453,35 @@ const App = (function() {
     // 记录收集进度
     Collection.recordView(speciesId);
     
-    // 生成二维码
+    // 生成二维码 + 加载详情图片
     const species = getSpeciesById(speciesId);
     if (species) {
       setTimeout(() => generateQRCode(species), 100);
+      loadDetailImage(species);
+    }
+  }
+  
+  /**
+   * 加载图鉴列表页的所有卡片图片
+   */
+  function loadGalleryImages() {
+    const cards = document.querySelectorAll('.card-image[data-species-id]');
+    cards.forEach(card => {
+      const speciesId = card.dataset.speciesId;
+      const latinName = card.dataset.latin;
+      SpeciesImageLoader.loadCardImage(speciesId, latinName, card);
+    });
+  }
+  
+  /**
+   * 加载详情页物种图片
+   */
+  function loadDetailImage(species) {
+    const hero = document.getElementById('detail-hero');
+    if (hero) {
+      SpeciesImageLoader.loadDetailImage(
+        species.id, species.latinName, species.emoji, hero
+      );
     }
   }
   
